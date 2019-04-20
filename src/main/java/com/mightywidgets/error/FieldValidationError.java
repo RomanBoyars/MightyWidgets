@@ -9,8 +9,8 @@ public class FieldValidationError extends InnerError {
     private Object rejectedValue;
     private String message;
 
-    public static FieldValidationErrorBulder newBuilder() {
-        return new FieldValidationError().new FieldValidationErrorBulder();
+    public static FieldValidationErrorBuilder newBuilder() {
+        return new FieldValidationError().new FieldValidationErrorBuilder();
     }
 
     public String getField() {
@@ -29,28 +29,28 @@ public class FieldValidationError extends InnerError {
         return object;
     }
 
-    public final class FieldValidationErrorBulder {
+    public final class FieldValidationErrorBuilder {
 
-        private FieldValidationErrorBulder() {
+        private FieldValidationErrorBuilder() {
 
         }
 
-        public FieldValidationErrorBulder withObject(String object) {
+        public FieldValidationErrorBuilder withObject(String object) {
             FieldValidationError.this.object = object;
             return this;
         }
 
-        public FieldValidationErrorBulder withField(String field) {
+        public FieldValidationErrorBuilder withField(String field) {
             FieldValidationError.this.field = field;
             return this;
         }
 
-        public FieldValidationErrorBulder withRejectedValue(Object rejectedValue) {
+        public FieldValidationErrorBuilder withRejectedValue(Object rejectedValue) {
             FieldValidationError.this.rejectedValue = rejectedValue;
             return this;
         }
 
-        public FieldValidationErrorBulder withMessage(String message) {
+        public FieldValidationErrorBuilder withMessage(String message) {
             FieldValidationError.this.message = message;
             return this;
         }

@@ -91,7 +91,7 @@ public class WidgetController {
         if (updatingWidget.getY() != null) widget.setY(updatingWidget.getY());
         if (updatingWidget.getHeight() != null) widget.setHeight(updatingWidget.getHeight());
         if (updatingWidget.getWidth() != null) widget.setWidth(updatingWidget.getWidth());
-        if (updatingWidget.getzIndex() != null) widget.setzIndex(updatingWidget.getzIndex());
+        if (updatingWidget.getZIndex() != null) widget.setzIndex(updatingWidget.getZIndex());
 
         return widgetRepository.save(widget);
     }

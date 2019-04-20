@@ -24,7 +24,7 @@ public final class WidgetRepository extends InMemoryRepository<Widget, Long> {
     @Override
     public <S extends Widget> S save(S widget) {
 
-        if (widget.getzIndex() == null) {
+        if (widget.getZIndex() == null) {
             widget.setzIndex(getMaxZIndex() + 1);
         } else {
             moveZIndexes(widget);
@@ -47,15 +47,15 @@ public final class WidgetRepository extends InMemoryRepository<Widget, Long> {
         List<Widget> widgets = findAll();
         if (widget.getId() == null || !findById(widget.getId()).isPresent() ||
                 widgets.stream()
-                        .anyMatch(e -> e.getId().equals(widget.getId()) && !e.getzIndex().equals(widget.getzIndex()))) {
+                        .anyMatch(e -> e.getId().equals(widget.getId()) && !e.getZIndex().equals(widget.getZIndex()))) {
             widgets.stream()
-                    .filter(e -> !e.getId().equals(widget.getId()) && e.getzIndex() >= widget.getzIndex())
+                    .filter(e -> !e.getId().equals(widget.getId()) && e.getZIndex() >= widget.getZIndex())
                     .forEach(Widget::incrementZIndex);
         }
     }
 
     private Integer getMaxZIndex() {
         List<Widget> widgets = findAll();
-        return widgets.stream().max(Comparator.comparing(Widget::getzIndex)).get().getzIndex();
+        return widgets.stream().max(Comparator.comparing(Widget::getZIndex)).get().getZIndex();
     }
 }

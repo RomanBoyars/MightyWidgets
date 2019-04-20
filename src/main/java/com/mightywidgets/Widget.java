@@ -71,7 +71,7 @@ public class Widget extends CanvasArea {
         this.setModified(new Date());
     }
 
-    public Integer getzIndex() {
+    public Integer getZIndex() {
         return zIndex;
     }
 
