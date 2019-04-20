@@ -12,8 +12,8 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.List;
@@ -30,13 +30,25 @@ public class WidgetErrorAdvice extends ResponseEntityExceptionHandler {
      * @param e the exception
      * @return {@link ResponseEntity}
      */
-    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(WidgetNotFoundException.class)
     public ResponseEntity<Object> handleNotFoundException(WidgetNotFoundException e) {
         ApiError apiError = ApiError.newBuilder()
-                .withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+                .withStatus(HttpStatus.NOT_FOUND)
                 .withMessage(e.getMessage())
                 .build();
+        return buildErrorResponseEntity(apiError);
+    }
+
+    @ExceptionHandler({MethodArgumentTypeMismatchException.class})
+    public ResponseEntity<Object> handleMethodArgumentTypeMismatch(
+            MethodArgumentTypeMismatchException ex, WebRequest request) {
+        String error =
+                ex.getName() + " should be of type " + ex.getRequiredType().getName();
+
+        ApiError apiError =
+                ApiError.newBuilder().withMessage(error)
+                        .withDebugMessage(ex.getLocalizedMessage())
+                        .build();
         return buildErrorResponseEntity(apiError);
     }
 
@@ -46,7 +58,6 @@ public class WidgetErrorAdvice extends ResponseEntityExceptionHandler {
      * @param e the exception
      * @return {@link ResponseEntity}
      */
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Object> handleRuntimeException(RuntimeException e) {
         ApiError apiError = ApiError.newBuilder()
@@ -119,4 +130,5 @@ public class WidgetErrorAdvice extends ResponseEntityExceptionHandler {
     private ResponseEntity<Object> buildErrorResponseEntity(ApiError apiError) {
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
+
 }

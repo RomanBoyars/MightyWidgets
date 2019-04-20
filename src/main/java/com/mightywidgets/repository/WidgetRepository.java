@@ -1,10 +1,13 @@
 package com.mightywidgets.repository;
 
 import com.mightywidgets.Widget;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 public final class WidgetRepository extends InMemoryRepository<Widget, Long> {
     private AtomicLong primaryKeyGenerator = new AtomicLong();
@@ -26,6 +29,16 @@ public final class WidgetRepository extends InMemoryRepository<Widget, Long> {
         }
 
         return super.save(widget);
+    }
+
+    public Page<Widget> getAll(int x, int y, int width, int height, Pageable pageable) {
+        List<Widget> widgets = findAll().stream().filter(e ->
+                e.getX() > x &&
+                        e.getY() > y &&
+                        e.getX() + width < x + width &&
+                        e.getY() + height < y + height).collect(Collectors.toList());
+        widgets = sort(widgets, pageable.getSort());
+        return paginate(widgets, pageable);
     }
 
     private <S extends Widget> void moveZIndexes(S widget) {

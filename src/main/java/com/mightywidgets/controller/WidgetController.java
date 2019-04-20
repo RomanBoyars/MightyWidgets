@@ -1,5 +1,6 @@
 package com.mightywidgets.controller;
 
+import com.mightywidgets.CanvasArea;
 import com.mightywidgets.Widget;
 import com.mightywidgets.error.EntityNotFoundException;
 import com.mightywidgets.error.WidgetNotFoundException;
@@ -8,6 +9,7 @@ import com.mightywidgets.repository.WidgetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -33,15 +34,16 @@ public class WidgetController {
     }
 
     @GetMapping
-    public ResponseEntity<Object> findAll(Pageable pageRequest) {
-        List<Widget> widgets = widgetRepository.findAll(pageRequest).getContent();
+    public ResponseEntity<Object> findAll(@Valid CanvasArea canvasArea, Pageable pageRequest) {
+        Page<Widget> currentPage = widgetRepository.findAll(pageRequest);
         Map<String, Object> message = new LinkedHashMap<>();
 
-        message.put("page", pageRequest.getPageNumber());
-        message.put("pageSize", pageRequest.getPageSize());
-        message.put("displaying", widgets.size());
-        message.put("total", widgetRepository.count());
-        message.put("widgets", widgets);
+        message.put("page", currentPage.getNumber());
+        message.put("pageSize", currentPage.getSize());
+        message.put("totalPages", currentPage.getTotalPages());
+        message.put("displaying", currentPage.getNumberOfElements());
+        message.put("totalElements", currentPage.getTotalElements());
+        message.put("widgets", currentPage.getContent());
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=UTF-8");

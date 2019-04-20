@@ -22,14 +22,19 @@ import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
+/**
+ * @param <T>  type of entities to store in repository
+ * @param <ID> type of keys
+ */
 public abstract class InMemoryRepository<T, ID> implements PagingAndSortingRepository<T, ID> {
 
     private Map<ID, T> entities = new ConcurrentHashMap<>();
 
     /**
-     * @return
+     * You must implement this in child class to key generation to work
+     *
+     * @return returns generated primary key. Must return an (@link ID} type of key
      */
     public abstract ID generatePrimaryKey();
 
@@ -192,8 +197,20 @@ public abstract class InMemoryRepository<T, ID> implements PagingAndSortingRepos
      * @throws RuntimeException throws when entity class does not have field to sort by or getter method for it
      */
     @Override
-    public Iterable<T> findAll(Sort sort) {
+    public List<T> findAll(Sort sort) {
         List<T> values = findAll();
+        return sort(values, sort);
+    }
+
+    /**
+     * Sorts given list of entities
+     * Note that for this to work entity class must have getter method for sorted field
+     *
+     * @param values the entities list
+     * @param sort   the {@link Sort} object
+     * @return returns sorted {@link List} of entities
+     */
+    protected List<T> sort(List<T> values, Sort sort) {
         Iterator<Sort.Order> it = sort.iterator();
 
         while (it.hasNext()) {
@@ -220,23 +237,28 @@ public abstract class InMemoryRepository<T, ID> implements PagingAndSortingRepos
 
     @Override
     public Page<T> findAll(Pageable pageable) {
-        Iterable<T> entities;
-        Sort sort = pageable.getSort();
-        if (sort != null)
-            entities = findAll(sort);
-        else
-            entities = findAll();
+        List<T> entities = findAll();
+        return paginate(sort(entities, pageable.getSort()), pageable);
+    }
+
+    /**
+     * Paginates given list of entities
+     *
+     * @param entitiesToPaginate the entities list
+     * @param pageable           the {@link Pageable} object
+     * @return returns {@link Page} of entities
+     */
+    protected Page<T> paginate(List<T> entitiesToPaginate, Pageable pageable) {
         int pageNumber = pageable.getPageNumber();
         int pageSize = pageable.getPageSize();
-
-        List<T> entitiessList = StreamSupport.stream(entities.spliterator(), false)
-                .collect(Collectors.toList());
-
         int startElem = pageNumber * pageSize;
-        int endElem = (startElem + pageSize < count()) ? startElem + pageSize : (int) count();
+        int size = entitiesToPaginate.size();
+
+        int endElem = (startElem + pageSize < size) ? startElem + pageSize : size;
+
         if (startElem > count())
             throw new RuntimeException("No such page " + pageNumber + "!");
-
-        return new PageImpl<>(entitiessList.subList(startElem, endElem), pageable, count());
+        return new PageImpl<>(entitiesToPaginate.subList(startElem, endElem), pageable, size);
     }
+
 }
