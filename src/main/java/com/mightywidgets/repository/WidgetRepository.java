@@ -1,5 +1,6 @@
 package com.mightywidgets.repository;
 
+import com.mightywidgets.CanvasArea;
 import com.mightywidgets.Widget;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,8 +15,9 @@ public final class WidgetRepository extends InMemoryRepository<Widget, Long> {
 
     @Override
     public Long generatePrimaryKey() {
-        while (findById(primaryKeyGenerator.get()).isPresent())
+        while (findById(primaryKeyGenerator.get()).isPresent()) {
             primaryKeyGenerator.incrementAndGet();
+        }
         return primaryKeyGenerator.get();
     }
 
@@ -31,12 +33,12 @@ public final class WidgetRepository extends InMemoryRepository<Widget, Long> {
         return super.save(widget);
     }
 
-    public Page<Widget> getAll(int x, int y, int width, int height, Pageable pageable) {
+    public Page<Widget> findAll(CanvasArea canvasArea, Pageable pageable) {
         List<Widget> widgets = findAll().stream().filter(e ->
-                e.getX() > x &&
-                        e.getY() > y &&
-                        e.getX() + width < x + width &&
-                        e.getY() + height < y + height).collect(Collectors.toList());
+                e.getX() > canvasArea.getX() &&
+                        e.getY() > canvasArea.getY() &&
+                        e.getX() + e.getWidth() < canvasArea.getX() + canvasArea.getWidth() &&
+                        e.getY() + e.getHeight() < canvasArea.getY() + canvasArea.getHeight()).collect(Collectors.toList());
         widgets = sort(widgets, pageable.getSort());
         return paginate(widgets, pageable);
     }
@@ -50,7 +52,6 @@ public final class WidgetRepository extends InMemoryRepository<Widget, Long> {
                     .filter(e -> !e.getId().equals(widget.getId()) && e.getzIndex() >= widget.getzIndex())
                     .forEach(Widget::incrementZIndex);
         }
-
     }
 
     private Integer getMaxZIndex() {

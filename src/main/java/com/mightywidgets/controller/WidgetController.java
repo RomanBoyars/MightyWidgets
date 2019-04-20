@@ -4,7 +4,6 @@ import com.mightywidgets.CanvasArea;
 import com.mightywidgets.Widget;
 import com.mightywidgets.error.EntityNotFoundException;
 import com.mightywidgets.error.WidgetNotFoundException;
-import com.mightywidgets.repository.InMemoryRepository;
 import com.mightywidgets.repository.WidgetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -25,7 +26,7 @@ import java.util.Optional;
 @RequestMapping("/api/test/widgets")
 public class WidgetController {
 
-    private final InMemoryRepository widgetRepository;
+    private final WidgetRepository widgetRepository;
     Logger log = LoggerFactory.getLogger(WidgetController.class);
 
     @Autowired
@@ -34,8 +35,16 @@ public class WidgetController {
     }
 
     @GetMapping
-    public ResponseEntity<Object> findAll(@Valid CanvasArea canvasArea, Pageable pageRequest) {
-        Page<Widget> currentPage = widgetRepository.findAll(pageRequest);
+    public ResponseEntity<Object> findAll(CanvasArea canvasArea, Pageable pageRequest) {
+
+        Page<Widget> currentPage;
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        if (validator.validate(canvasArea).size() == 0) {
+            currentPage = widgetRepository.findAll(canvasArea, pageRequest);
+        } else {
+            currentPage = widgetRepository.findAll(pageRequest);
+        }
+
         Map<String, Object> message = new LinkedHashMap<>();
 
         message.put("page", currentPage.getNumber());
@@ -56,15 +65,16 @@ public class WidgetController {
     public ResponseEntity<Widget> findById(@PathVariable Long id) {
         Optional<Widget> widget = widgetRepository.findById(id);
 
-        if (!widget.isPresent())
+        if (!widget.isPresent()) {
             throw new WidgetNotFoundException(id);
+        }
         return new ResponseEntity<>(widget.get(), HttpStatus.OK);
     }
 
 
     @PostMapping
     public Widget create(@Valid @RequestBody Widget widget) {
-        return (Widget) widgetRepository.save(widget);
+        return widgetRepository.save(widget);
     }
 
 
@@ -72,8 +82,9 @@ public class WidgetController {
     public Widget update(@PathVariable Long id, @Valid @RequestBody Widget updatingWidget) {
         Optional<Widget> widgetOptional = widgetRepository.findById(id);
 
-        if (!widgetOptional.isPresent())
+        if (!widgetOptional.isPresent()) {
             throw new WidgetNotFoundException(id);
+        }
         Widget widget = widgetOptional.get();
 
         if (updatingWidget.getX() != null) widget.setX(updatingWidget.getX());
@@ -82,7 +93,7 @@ public class WidgetController {
         if (updatingWidget.getWidth() != null) widget.setWidth(updatingWidget.getWidth());
         if (updatingWidget.getzIndex() != null) widget.setzIndex(updatingWidget.getzIndex());
 
-        return (Widget) widgetRepository.save(widget);
+        return widgetRepository.save(widget);
     }
 
 

@@ -235,7 +235,6 @@ public abstract class InMemoryRepository<T, ID> implements PagingAndSortingRepos
         return values;
     }
 
-    @Override
     public Page<T> findAll(Pageable pageable) {
         List<T> entities = findAll();
         return paginate(sort(entities, pageable.getSort()), pageable);
@@ -256,8 +255,9 @@ public abstract class InMemoryRepository<T, ID> implements PagingAndSortingRepos
 
         int endElem = (startElem + pageSize < size) ? startElem + pageSize : size;
 
-        if (startElem > count())
+        if (startElem > count()) {
             throw new RuntimeException("No such page " + pageNumber + "!");
+        }
         return new PageImpl<>(entitiesToPaginate.subList(startElem, endElem), pageable, size);
     }
 
