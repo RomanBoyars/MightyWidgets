@@ -7,10 +7,11 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
-public final class WidgetRepository extends InMemoryRepository<Widget, Long> {
+public class WidgetRepository extends InMemoryRepository<Widget, Long> {
     private AtomicLong primaryKeyGenerator = new AtomicLong();
 
     @Override
@@ -56,6 +57,11 @@ public final class WidgetRepository extends InMemoryRepository<Widget, Long> {
 
     private Integer getMaxZIndex() {
         List<Widget> widgets = findAll();
-        return widgets.stream().max(Comparator.comparing(Widget::getZIndex)).get().getZIndex();
+        Optional<Widget> maxZIndexWidget = widgets.stream().max(Comparator.comparing(Widget::getZIndex));
+        if (maxZIndexWidget.isPresent()) {
+            return maxZIndexWidget.get().getZIndex();
+        } else {
+            return 0;
+        }
     }
 }

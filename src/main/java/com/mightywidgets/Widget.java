@@ -1,14 +1,15 @@
-/**
- * Widget class
- * <p>
- * Represents a whiteboard widget.
- * <p>
- * Created 16.04.2019
+/*
+  Widget class
+  <p>
+  Represents a whiteboard widget.
+  <p>
+  Created 16.04.2019
  */
 
 package com.mightywidgets;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
 import java.util.Date;
@@ -31,7 +32,13 @@ public class Widget extends CanvasArea {
      * @param width  Widget width in pixels. Must not be null or empty, or lesser than 0.
      * @param zIndex Z-Index of widget (the higher the value, the higher the widget lies)
      */
-    public Widget(Long id, Integer x, Integer y, Integer height, Integer width, Integer zIndex) {
+    public Widget(
+            @JsonProperty("id") Long id,
+            @JsonProperty("x") Integer x,
+            @JsonProperty("y") Integer y,
+            @JsonProperty("height") Integer height,
+            @JsonProperty("width") Integer width,
+            @JsonProperty("zindex") Integer zIndex) {
         super(x, y, height, width);
         this.id = id;
         this.zIndex = zIndex;

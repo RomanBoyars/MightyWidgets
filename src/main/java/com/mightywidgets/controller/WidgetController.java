@@ -26,8 +26,8 @@ import java.util.Optional;
 @RequestMapping("/api/test/widgets")
 public class WidgetController {
 
-    private final WidgetRepository widgetRepository;
     Logger log = LoggerFactory.getLogger(WidgetController.class);
+    private WidgetRepository widgetRepository;
 
     @Autowired
     public WidgetController(WidgetRepository widgetRepository) {
@@ -36,14 +36,13 @@ public class WidgetController {
 
     @GetMapping
     public ResponseEntity<Object> findAll(CanvasArea canvasArea, Pageable pageRequest) {
-
         Page<Widget> currentPage;
+
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        if (validator.validate(canvasArea).size() == 0) {
+        if (validator.validate(canvasArea).size() == 0)
             currentPage = widgetRepository.findAll(canvasArea, pageRequest);
-        } else {
+        else
             currentPage = widgetRepository.findAll(pageRequest);
-        }
 
         Map<String, Object> message = new LinkedHashMap<>();
 
@@ -78,7 +77,7 @@ public class WidgetController {
     }
 
 
-    @PatchMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public Widget update(@PathVariable Long id, @Valid @RequestBody Widget updatingWidget) {
         Optional<Widget> widgetOptional = widgetRepository.findById(id);
 
