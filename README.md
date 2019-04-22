@@ -48,6 +48,7 @@ Provides REST access to Widgets
 #### Find all
 A request to get all the widgets, or widgets from specific canvas area. Supports pagination and sorting.
 uri params:
+
 Param | Description | Constraint
 ------------- | ------------- | ------------- 
 x | x coordinate of canvas area to get widgets from | Not null, only 3 digits allowed
@@ -56,7 +57,8 @@ width | width of canvas area to get widgets from | Not null, > 0, only 3 digits 
 height | height of canvas area to get widgets from | Not null, > 0, only 3 digits allowed
 page | page number to get content from |
 size | number of elements to display on one page |
-sort | sorting field name and direction
+sort | sorting field name and direction |
+
 To get widgets from specific canvas area you must provide valid arguments for all canvas area parameters (x, y, width, height). 
 returns JSON with paging information and widgets list.
 example:
@@ -74,8 +76,9 @@ example:
         ]
     }
 ```
-response codes
-code | description
+response codes:
+
+Code | Description
 ------------- | -------------
 200 | response returned succesfully
 404 | returned when requested page not found
