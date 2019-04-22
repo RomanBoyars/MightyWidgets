@@ -22,6 +22,7 @@ API uses pagination to limit response results, for resources that return large c
     }
 ```
 Cliens can use "page" and "size" parameters to get the desired set of results.
+
 Param | Description
 ------------ | -------------
 Content from cell 1 | Content from cell 2
