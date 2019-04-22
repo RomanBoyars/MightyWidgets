@@ -199,7 +199,7 @@ Code | Description
 
 ### Delete exsisting. Request method: DELETE
 
-Deletes a specific widget information by its ID.
+Deletes a specific widget by its ID.
 
 uri format:
 >http://host:port/rest/api-version/widgets/{id}
