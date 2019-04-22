@@ -67,7 +67,7 @@ Returns JSON with paging information and widgets list.
 
 Example:
 ```
-{
+   {
         "page" : 0,
         "pageSize",
         "totalPages" : 10,
@@ -89,6 +89,32 @@ Code | Description
 500 | returned when sorting or paging information is invalid
 
 #### Find by id
+Get a specific widget information by its ID.
+
+uri format:
+http://host:port/rest/api-version/widgets/{id}
+
+id must be number
+
+returns JSOM with information about requested widget. Example:
+
+```
+   {
+        "id" : 0,
+        "x" : 5,
+        "y" : 10,
+        "width" : 3,
+        "height" : 3,
+        "zIndex" : 5
+    }
+```
+
+Code | Description
+------------- | -------------
+200 | response returned succesfully
+404 | returned when requested widget does not exist in repository
+500 | returned when id is invalid
+
 #### Add new or replace existing
 #### Update existing
 #### Delete exsisting
