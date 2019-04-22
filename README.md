@@ -32,15 +32,15 @@ example uri:
 >http://host:port/rest/api-version/resource-name/?page=1&size=50
 
 this request returns page 1 with size of 50 elements
+
 ##Sorting
 Sorting request is provided by "sort" parameter. You need to specify field name on which to sort by and you can add sorting direction ("asc" or "desc"). By default results are sorted in ascending direction by id field.
 example uri:
 >http://host:port/rest/api-version/resource-name/?sort=X,desc
 
 returned results will be sorted by "X" field in descending direction
-
-
 ##Resources
+gdsgsdg
 
 ###Widgets
 
