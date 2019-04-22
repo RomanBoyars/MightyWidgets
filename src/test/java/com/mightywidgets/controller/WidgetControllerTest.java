@@ -1,25 +1,16 @@
 package com.mightywidgets.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
+import com.mightywidgets.AbstractTest;
 import com.mightywidgets.Widget;
-import com.mightywidgets.error.WidgetErrorAdvice;
-import com.mightywidgets.repository.WidgetRepository;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,32 +20,7 @@ import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 @WebMvcTest(WidgetController.class)
-public class WidgetControllerTest {
-
-
-    private ObjectMapper mapper;
-    @Autowired
-    private MockMvc mockMvc;
-    private WidgetRepository widgetRepository;
-    private WidgetController widgetController;
-
-    @Before
-    public void setup() {
-        this.mapper = new ObjectMapper();
-        WidgetRepository widgetRepository = new WidgetRepository();
-        widgetRepository.save(new Widget(null, 0, 0, 10, 10, null));
-        widgetRepository.save(new Widget(null, 1, 1, 20, 20, null));
-        widgetRepository.save(new Widget(null, 2, 2, 30, 30, null));
-        this.widgetRepository = widgetRepository;
-
-        this.widgetController = new WidgetController(widgetRepository);
-
-        mockMvc = MockMvcBuilders.standaloneSetup(widgetController)
-                .setControllerAdvice(new WidgetErrorAdvice())
-                .setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
-                .setViewResolvers((ViewResolver) (viewName, locale) -> new MappingJackson2JsonView())
-                .build();
-    }
+public class WidgetControllerTest extends AbstractTest {
 
     private List<Widget> getWidgetsFromJson(String jsonString) throws IOException {
         return mapper.readValue(jsonString, new TypeReference<List<Widget>>() {
@@ -110,7 +76,7 @@ public class WidgetControllerTest {
     @Test
     public void checkGetById() throws Exception {
         int id = 1;
-        String uri = "/api/test/widgets/" + 1;
+        String uri = "/api/test/widgets/" + id;
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
         int status = mvcResult.getResponse().getStatus();

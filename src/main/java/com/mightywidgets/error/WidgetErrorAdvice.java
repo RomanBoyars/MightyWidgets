@@ -47,6 +47,7 @@ public class WidgetErrorAdvice extends ResponseEntityExceptionHandler {
 
         ApiError apiError =
                 ApiError.newBuilder().withMessage(error)
+                        .withStatus(HttpStatus.BAD_REQUEST)
                         .withDebugMessage(ex.getLocalizedMessage())
                         .build();
         return buildErrorResponseEntity(apiError);
