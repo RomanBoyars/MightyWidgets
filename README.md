@@ -28,7 +28,7 @@ API uses pagination to limit response results, for resources that return large c
 Cliens can use "page" and "size" parameters to get the desired set of results.
 
 Param | Description
------------- | -------------
+:------------ | :-------------
 page | page number to get content from
 size | number of elements to display on one page
 
@@ -47,10 +47,9 @@ returned results will be sorted by "X" field in descending direction
 ## Resources
 ### Widgets
 Provides REST access to Widgets
-#### Find all
-A request to get all the widgets, or widgets from specific canvas area. Supports pagination and sorting.
 
-**request method: GET** 
+#### Find all. request method: GET
+A request to get all the widgets, or widgets from specific canvas area. Supports pagination and sorting.
 
 uri format:
 >http://host:port/rest/api-version/widgets/
@@ -58,7 +57,7 @@ uri format:
 uri params:
 
 Param | Description | Constraint
-------------- | ------------- | ------------- 
+:------------- | :------------- | :------------- 
 x | x coordinate of canvas area to get widgets from | Not null, only 3 digits allowed
 y | y coordinate of canvas area to get widgets from | Not null, only 3 digits allowed
 width | width of canvas area to get widgets from | Not null, > 0, only 3 digits allowed
@@ -88,15 +87,13 @@ Example:
 Response codes:
 
 Code | Description
-------------- | -------------
+:------------- | :-------------
 200 | response returned succesfully
 404 | returned when requested page not found
 500 | returned when sorting or paging information is invalid
 
-#### Find by id
+#### Find by id. request method: GET
 Get a specific widget information by its ID.
-
-**request method: GET** 
 
 uri format:
 >http://host:port/rest/api-version/widgets/{id}
@@ -116,13 +113,116 @@ returns JSON with information about requested widget. Example:
     }
 ```
 
+Response codes:
+
 Code | Description
-------------- | -------------
+:------------- | :-------------
 200 | response returned succesfully
-404 | returned when requested widget does not exist in repository
+404 | returned when the requested widget does not exist in repository
 500 | returned when id is invalid
 
-#### Add new or replace existing
-#### Update existing
-#### Delete exsisting
+#### Add new or replace existing. Request method: POST
 
+Adds new widget to the repository, or replaces the existing.
+Accepts JSON with widget information.
+
+Input JSON fields:
+
+Field name | Description | Constraint | Additional info
+:------------- | :------------- | :------------- | :------------- 
+id | id of the widget | Must be a number and > 0 | If widget with provided ID already exists in reposetory, will replace it wit provided widget
+x | x coordinate of canvas area to get widgets from | Not null, only 3 digits allowed | -
+y | y coordinate of canvas area to get widgets from | Not null, only 3 digits allowed | -
+width | width of canvas area to get widgets from | Not null, > 0, only 3 digits allowed | -
+height | height of canvas area to get widgets from | Not null, > 0, only 3 digits allowed | -
+zIndex | zIndex of the widget | If added zIndex already exists in repository, will increment all the indexes that are higher than provided
+
+returns JSON with information about added/edited widget. Example:
+
+```
+   {
+        "id" : 0,
+        "x" : 5,
+        "y" : 10,
+        "width" : 3,
+        "height" : 3,
+        "zIndex" : 5
+    }
+```
+
+Code | Description
+:------------- | :-------------
+200 | response returned succesfully
+422 | returned when one or more request parameters is invalid
+500 | returned when JSON is malformed
+
+#### Update existing. Request method: PUT
+
+Updates the existing widget in repository.
+Accepts JSON with widget information.
+
+uri format:
+>http://host:port/rest/api-version/widgets/{id}
+
+id must be a number
+
+Input JSON fields:
+
+Field name | Description | Constraint | Additional info
+:------------- | :------------- | :------------- | :------------- 
+x | x coordinate of canvas area to get widgets from | Not null, only 3 digits allowed | -
+y | y coordinate of canvas area to get widgets from | Not null, only 3 digits allowed | -
+width | width of canvas area to get widgets from | Not null, > 0, only 3 digits allowed | -
+height | height of canvas area to get widgets from | Not null, > 0, only 3 digits allowed | -
+zIndex | zIndex of the widget | If added zIndex already exists in repository, will increment all the indexes that are higher than provided
+
+id field will be ignored by this method
+
+returns JSON with information about added/edited widget. Example:
+
+```
+   {
+        "id" : 0,
+        "x" : 5,
+        "y" : 10,
+        "width" : 3,
+        "height" : 3,
+        "zIndex" : 5
+    }
+```
+
+Code | Description
+:------------- | :-------------
+200 | response returned succesfully
+422 | returned when one or more request parameters is invalid
+500 | returned when JSON is malformed
+
+#### Delete exsisting. Request method: DELETE
+
+Deletes a specific widget information by its ID.
+
+uri format:
+>http://host:port/rest/api-version/widgets/{id}
+
+id must be number
+
+returns JSON with information about requested widget. Example:
+
+```
+   {
+        "id" : 0,
+        "x" : 5,
+        "y" : 10,
+        "width" : 3,
+        "height" : 3,
+        "zIndex" : 5
+    }
+```
+
+Response codes:
+
+Code | Description
+:------------- | :-------------
+200 | response returned succesfully
+404 | returned when the requested widget does not exist in repository
+500 | returned when id is invalid
