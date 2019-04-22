@@ -1,8 +1,10 @@
 # MightyWidgets REST API
 Welcome to the Mighty Widgets REST API reference. You can use this API to work with widget-type objects in your application. Mighty widgets provides an API to create, delete, and get widget objects in the format of JSON.
+
 In the sections below, you can find documentation, expected HTTP response codes and sample requests to each available API method.
 ## URI structure
 MightyWidgets REST API provides access to resources (data entities) via URI paths. To use a REST API, just make an HTTP request and parse the response in your application. 
+
 The MightyWidgets REST API uses standard HTTP methods like GET, PUT, POST and DELETE, and JSON format. URIs for Jira's REST API resource have the following structure:
 ```
 http://host:port/rest/api-version/resource-name
@@ -47,6 +49,7 @@ returned results will be sorted by "X" field in descending direction
 Provides REST access to Widgets
 #### Find all
 A request to get all the widgets, or widgets from specific canvas area. Supports pagination and sorting.
+
 uri params:
 
 Param | Description | Constraint
@@ -55,13 +58,14 @@ x | x coordinate of canvas area to get widgets from | Not null, only 3 digits al
 y | y coordinate of canvas area to get widgets from | Not null, only 3 digits allowed
 width | width of canvas area to get widgets from | Not null, > 0, only 3 digits allowed
 height | height of canvas area to get widgets from | Not null, > 0, only 3 digits allowed
-page | page number to get content from |
-size | number of elements to display on one page |
-sort | sorting field name and direction |
+page | page number to get content from | Must be an existing page number ( <= totalPages)
+size | number of elements to display on one page | < 500
+sort | sorting field name and direction | Must be an existing field name
 
 To get widgets from specific canvas area you must provide valid arguments for all canvas area parameters (x, y, width, height). 
-returns JSON with paging information and widgets list.
-example:
+Returns JSON with paging information and widgets list.
+
+Example:
 ```
 {
         "page" : 0,
@@ -76,7 +80,7 @@ example:
         ]
     }
 ```
-response codes:
+Response codes:
 
 Code | Description
 ------------- | -------------
