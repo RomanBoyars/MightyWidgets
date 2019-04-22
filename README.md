@@ -50,6 +50,11 @@ Provides REST access to Widgets
 #### Find all
 A request to get all the widgets, or widgets from specific canvas area. Supports pagination and sorting.
 
+**request method: GET** 
+
+uri format:
+>http://host:port/rest/api-version/widgets/
+
 uri params:
 
 Param | Description | Constraint
@@ -91,12 +96,14 @@ Code | Description
 #### Find by id
 Get a specific widget information by its ID.
 
+**request method: GET** 
+
 uri format:
-http://host:port/rest/api-version/widgets/{id}
+>http://host:port/rest/api-version/widgets/{id}
 
 id must be number
 
-returns JSOM with information about requested widget. Example:
+returns JSON with information about requested widget. Example:
 
 ```
    {
