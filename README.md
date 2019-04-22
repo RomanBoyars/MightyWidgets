@@ -5,7 +5,7 @@ In the sections below, you can find documentation, expected HTTP response codes 
 ## URI structure
 MightyWidgets REST API provides access to resources (data entities) via URI paths. To use a REST API, just make an HTTP request and parse the response in your application. 
 
-The MightyWidgets REST API uses standard HTTP methods like GET, PUT, POST and DELETE, and JSON format. URIs for Jira's REST API resource have the following structure:
+The MightyWidgets REST API uses standard HTTP methods like GET, PUT, POST and DELETE, and JSON format. URIs for REST API resource have the following structure:
 ```
 http://host:port/rest/api-version/resource-name
 ```
