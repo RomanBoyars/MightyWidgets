@@ -48,7 +48,7 @@ returned results will be sorted by "X" field in descending direction
 ### Widgets
 Provides REST access to Widgets
 
-#### Find all. request method: GET
+### Find all. request method: GET
 A request to get all the widgets, or widgets from specific canvas area. Supports pagination and sorting.
 
 uri format:
@@ -92,7 +92,7 @@ Code | Description
 404 | returned when requested page not found
 500 | returned when sorting or paging information is invalid
 
-#### Find by id. request method: GET
+### Find by id. request method: GET
 Get a specific widget information by its ID.
 
 uri format:
@@ -121,7 +121,7 @@ Code | Description
 404 | returned when the requested widget does not exist in repository
 500 | returned when id is invalid
 
-#### Add new or replace existing. Request method: POST
+### Add new or replace existing. Request method: POST
 
 Adds new widget to the repository, or replaces the existing.
 Accepts JSON with widget information.
@@ -156,7 +156,7 @@ Code | Description
 422 | returned when one or more request parameters is invalid
 500 | returned when JSON is malformed
 
-#### Update existing. Request method: PUT
+### Update existing. Request method: PUT
 
 Updates the existing widget in repository.
 Accepts JSON with widget information.
@@ -178,7 +178,7 @@ zIndex | zIndex of the widget | > 0 | If zIndex is changed and new zIndex alread
 
 id field will be ignored by this method
 
-returns JSON with information about added/edited widget. Example:
+returns JSON with information about updated widget. Example:
 
 ```
    {
@@ -197,7 +197,7 @@ Code | Description
 422 | returned when one or more request parameters is invalid
 500 | returned when JSON is malformed
 
-#### Delete exsisting. Request method: DELETE
+### Delete exsisting. Request method: DELETE
 
 Deletes a specific widget information by its ID.
 
@@ -206,17 +206,10 @@ uri format:
 
 id must be number
 
-returns JSON with information about requested widget. Example:
+Returns a message that the widget was deleted successfully. Example:
 
 ```
-   {
-        "id" : 0,
-        "x" : 5,
-        "y" : 10,
-        "width" : 3,
-        "height" : 3,
-        "zIndex" : 5
-    }
+Succesfully deleted widget 3
 ```
 
 Response codes:
