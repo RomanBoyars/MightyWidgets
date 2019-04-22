@@ -5,55 +5,401 @@
     <title>Title</title>
     <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" rel="stylesheet">
+    <link crossorigin="anonymous" media="all" integrity="sha512-OBabailf0Gja8rWVZO1xyYAw//CQdLOJF4riG050gTxsVqVD7az4Sq56hPWfv3AoaxuEhYXgQlGQcNxzZzDyVA==" rel="stylesheet" href="https://github.githubassets.com/assets/frameworks-d69542a4a3958db914b3bec3f757de26.css" />
+
+    <link crossorigin="anonymous" media="all" integrity="sha512-S2yW1whAkD8WI2t43ZVCJmc11lEgmtNAGVgWEQqI1+jI07JnQrIxSSr9SQIwemH4mPUUqG742uPWKg1Vgu2IGA==" rel="stylesheet" href="https://github.githubassets.com/assets/github-372625c1302fbb9ca67089b504b63790.css" />
 </head>
 <body>
 <div class="container">
-    <h1>Mighty widgets by Boyarshinow Roman</h1>
-    <h2>REST API Reference</h2>
-    <p>
-        Welcome to the Mighty Widgets REST API reference. You can use this API to work with widget-type objects in your
-        application.
-        Mighty widgets provides an API to create, delete, and get widget objects in the format of JSON.
-        In the sections below, you can find documentation, expected HTTP response codes and sample requests to each
-        available API method.
-    </p>
-    <h2>URI Structure</h2>
-    <p>
-        URI Structure section here
-    </p>
-    <h2>Pagination</h2>
-    <p>
-        Pagination section here
-    </p>
-    <h2>Ordering</h2>
-    <p>
-        Ordering section here
-    </p>
-    <h2>Error responses</h2>
-    <p>
-        Error responses section here
-    </p>
-    <h2>Resources</h2>
-    <h3>Creating a widget</h3>
-    <p>
-    <pre>
-    {
-        "x": 546546456,
-        "y": 0,
-        "height": 0,
-        "width": 0,
-        "zIndex": 0
+    <article class="markdown-body entry-content p-5" itemprop="text"><h1><a id="user-content-mightywidgets-rest-api" class="anchor" aria-hidden="true" href="#mightywidgets-rest-api"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>MightyWidgets REST API</h1>
+        <p>Welcome to the Mighty Widgets REST API reference. You can use this API to work with widget-type objects in your application. Mighty widgets provides an API to create, delete, and get widget objects in the format of JSON.</p>
+        <p>In the sections below, you can find documentation, expected HTTP response codes and sample requests to each available API method.</p>
+        <h2><a id="user-content-uri-structure" class="anchor" aria-hidden="true" href="#uri-structure"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>URI structure</h2>
+        <p>MightyWidgets REST API provides access to resources (data entities) via URI paths. To use a REST API, just make an HTTP request and parse the response in your application.</p>
+        <p>The MightyWidgets REST API uses standard HTTP methods like GET, PUT, POST and DELETE, and JSON format. URIs for REST API resource have the following structure:</p>
+        <pre><code>http://host:port/rest/api-version/resource-name
+</code></pre>
+        <h2><a id="user-content-pagination" class="anchor" aria-hidden="true" href="#pagination"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pagination</h2>
+        <p>API uses pagination to limit response results, for resources that return large collections of items. Returned JSON wil contain paging metadata and a collection of items itself. Example:</p>
+        <pre><code>{
+        "page" : 0,
+        "pageSize",
+        "totalPages" : 10,
+        "showing": 3,
+        "totalElems": 3,
+        "widgets": [
+            { /* result 0 */ },
+            { /* result 1 */ },
+            { /* result 2 */ }
+        ]
     }
-    </pre>
-    Creating widget section here</p>
-    <h3>Get widget by ID</h3>
-    <p>Get widget by id section here</p>
-    <h3>Updating widget</h3>
-    <p>Updating widget section here</p>
-    <h3>Getting a list of widgets</h3>
-    <p>Getting a list of widgets section here</p>
-    <h3>Deleting a widget</h3>
-    <p>Deleting widget section here</p>
+</code></pre>
+        <p>Cliens can use "page" and "size" parameters to get the desired set of results.</p>
+        <table>
+            <thead>
+            <tr>
+                <th align="left">Param</th>
+                <th align="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="left">page</td>
+                <td align="left">page number to get content from</td>
+            </tr>
+            <tr>
+                <td align="left">size</td>
+                <td align="left">number of elements to display on one page</td>
+            </tr>
+            </tbody>
+        </table>
+        <p>example uri:</p>
+        <pre><code>http://host:port/rest/api-version/resource-name/?page=1&amp;size=50
+</code></pre>
+        <p>this request returns page 1 with size of 50 elements</p>
+        <h2><a id="user-content-sorting" class="anchor" aria-hidden="true" href="#sorting"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sorting</h2>
+        <p>Sorting request is provided by "sort" parameter. You need to specify field name on which to sort by and you can add sorting direction ("asc" or "desc"). By default results are sorted in ascending direction by id field.
+            example uri:</p>
+        <pre><code>http://host:port/rest/api-version/resource-name/?sort=X,desc
+</code></pre>
+        <p>returned results will be sorted by "X" field in descending direction</p>
+        <h2><a id="user-content-resources" class="anchor" aria-hidden="true" href="#resources"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Resources</h2>
+        <h3><a id="user-content-widgets" class="anchor" aria-hidden="true" href="#widgets"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Widgets</h3>
+        <p>Provides REST access to Widgets</p>
+        <h3><a id="user-content-find-all-request-method-get" class="anchor" aria-hidden="true" href="#find-all-request-method-get"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Find all. request method: GET</h3>
+        <p>A request to get all the widgets, or widgets from specific canvas area. Supports pagination and sorting.</p>
+        <p>uri format:</p>
+        <blockquote>
+            <p><a href="http://host:port/rest/api-version/widgets/" rel="nofollow">http://host:port/rest/api-version/widgets/</a></p>
+        </blockquote>
+        <p>uri params:</p>
+        <table>
+            <thead>
+            <tr>
+                <th align="left">Param</th>
+                <th align="left">Description</th>
+                <th align="left">Constraint</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="left">x</td>
+                <td align="left">x coordinate of canvas area to get widgets from</td>
+                <td align="left">Not null, only 3 digits allowed</td>
+            </tr>
+            <tr>
+                <td align="left">y</td>
+                <td align="left">y coordinate of canvas area to get widgets from</td>
+                <td align="left">Not null, only 3 digits allowed</td>
+            </tr>
+            <tr>
+                <td align="left">width</td>
+                <td align="left">width of canvas area to get widgets from</td>
+                <td align="left">Not null, &gt; 0, only 3 digits allowed</td>
+            </tr>
+            <tr>
+                <td align="left">height</td>
+                <td align="left">height of canvas area to get widgets from</td>
+                <td align="left">Not null, &gt; 0, only 3 digits allowed</td>
+            </tr>
+            <tr>
+                <td align="left">page</td>
+                <td align="left">page number to get content from</td>
+                <td align="left">Must be an existing page number ( &lt;= totalPages)</td>
+            </tr>
+            <tr>
+                <td align="left">size</td>
+                <td align="left">number of elements to display on one page</td>
+                <td align="left">&lt; 500</td>
+            </tr>
+            <tr>
+                <td align="left">sort</td>
+                <td align="left">sorting field name and direction</td>
+                <td align="left">Must be an existing field name</td>
+            </tr>
+            </tbody>
+        </table>
+        <p>To get widgets from specific canvas area you must provide valid arguments for all canvas area parameters (x, y, width, height).
+            Returns JSON with paging information and widgets list.</p>
+        <p>Example:</p>
+        <pre><code>   {
+        "page" : 0,
+        "pageSize",
+        "totalPages" : 10,
+        "showing": 3,
+        "totalElems": 3,
+        "widgets": [
+            { /* result 0 */ },
+            { /* result 1 */ },
+            { /* result 2 */ }
+        ]
+    }
+</code></pre>
+        <p>Response codes:</p>
+        <table>
+            <thead>
+            <tr>
+                <th align="left">Code</th>
+                <th align="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="left">200</td>
+                <td align="left">response returned succesfully</td>
+            </tr>
+            <tr>
+                <td align="left">404</td>
+                <td align="left">returned when requested page not found</td>
+            </tr>
+            <tr>
+                <td align="left">500</td>
+                <td align="left">returned when sorting or paging information is invalid</td>
+            </tr>
+            </tbody>
+        </table>
+        <h3><a id="user-content-find-by-id-request-method-get" class="anchor" aria-hidden="true" href="#find-by-id-request-method-get"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Find by id. request method: GET</h3>
+        <p>Get a specific widget information by its ID.</p>
+        <p>uri format:</p>
+        <blockquote>
+            <p><a href="http://host:port/rest/api-version/widgets/%7Bid%7D" rel="nofollow">http://host:port/rest/api-version/widgets/{id}</a></p>
+        </blockquote>
+        <p>id must be number</p>
+        <p>returns JSON with information about requested widget. Example:</p>
+        <pre><code>   {
+        "id" : 0,
+        "x" : 5,
+        "y" : 10,
+        "width" : 3,
+        "height" : 3,
+        "zIndex" : 5
+    }
+</code></pre>
+        <p>Response codes:</p>
+        <table>
+            <thead>
+            <tr>
+                <th align="left">Code</th>
+                <th align="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="left">200</td>
+                <td align="left">response returned succesfully</td>
+            </tr>
+            <tr>
+                <td align="left">404</td>
+                <td align="left">returned when the requested widget does not exist in repository</td>
+            </tr>
+            <tr>
+                <td align="left">500</td>
+                <td align="left">returned when id is invalid</td>
+            </tr>
+            </tbody>
+        </table>
+        <h3><a id="user-content-add-new-or-replace-existing-request-method-post" class="anchor" aria-hidden="true" href="#add-new-or-replace-existing-request-method-post"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Add new or replace existing. Request method: POST</h3>
+        <p>Adds new widget to the repository, or replaces the existing.
+            Accepts JSON with widget information.</p>
+        <p>Input JSON fields:</p>
+        <table>
+            <thead>
+            <tr>
+                <th align="left">Field name</th>
+                <th align="left">Description</th>
+                <th align="left">Constraint</th>
+                <th align="left">Additional info</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="left">id</td>
+                <td align="left">id of the widget</td>
+                <td align="left">Must be a number and &gt; 0</td>
+                <td align="left">If widget with provided ID already exists in reposetory, will replace it wit provided widget</td>
+            </tr>
+            <tr>
+                <td align="left">x</td>
+                <td align="left">x coordinate of canvas area to get widgets from</td>
+                <td align="left">Not null, only 3 digits allowed</td>
+                <td align="left">-</td>
+            </tr>
+            <tr>
+                <td align="left">y</td>
+                <td align="left">y coordinate of canvas area to get widgets from</td>
+                <td align="left">Not null, only 3 digits allowed</td>
+                <td align="left">-</td>
+            </tr>
+            <tr>
+                <td align="left">width</td>
+                <td align="left">width of canvas area to get widgets from</td>
+                <td align="left">Not null, &gt; 0, only 3 digits allowed</td>
+                <td align="left">-</td>
+            </tr>
+            <tr>
+                <td align="left">height</td>
+                <td align="left">height of canvas area to get widgets from</td>
+                <td align="left">Not null, &gt; 0, only 3 digits allowed</td>
+                <td align="left">-</td>
+            </tr>
+            <tr>
+                <td align="left">zIndex</td>
+                <td align="left">zIndex of the widget</td>
+                <td align="left">&gt;0</td>
+                <td align="left">If added zIndex already exists in repository, will increment all the indexes that are higher than provided</td>
+            </tr>
+            </tbody>
+        </table>
+        <p>returns JSON with information about added/edited widget. Example:</p>
+        <pre><code>   {
+        "id" : 0,
+        "x" : 5,
+        "y" : 10,
+        "width" : 3,
+        "height" : 3,
+        "zIndex" : 5
+    }
+</code></pre>
+        <table>
+            <thead>
+            <tr>
+                <th align="left">Code</th>
+                <th align="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="left">200</td>
+                <td align="left">response returned succesfully</td>
+            </tr>
+            <tr>
+                <td align="left">422</td>
+                <td align="left">returned when one or more request parameters is invalid</td>
+            </tr>
+            <tr>
+                <td align="left">500</td>
+                <td align="left">returned when JSON is malformed</td>
+            </tr>
+            </tbody>
+        </table>
+        <h3><a id="user-content-update-existing-request-method-put" class="anchor" aria-hidden="true" href="#update-existing-request-method-put"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Update existing. Request method: PUT</h3>
+        <p>Updates the existing widget in repository.
+            Accepts JSON with widget information.</p>
+        <p>uri format:</p>
+        <blockquote>
+            <p><a href="http://host:port/rest/api-version/widgets/%7Bid%7D" rel="nofollow">http://host:port/rest/api-version/widgets/{id}</a></p>
+        </blockquote>
+        <p>id must be a number</p>
+        <p>Input JSON fields:</p>
+        <table>
+            <thead>
+            <tr>
+                <th align="left">Field name</th>
+                <th align="left">Description</th>
+                <th align="left">Constraint</th>
+                <th align="left">Additional info</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="left">x</td>
+                <td align="left">x coordinate of canvas area to get widgets from</td>
+                <td align="left">Not null, only 3 digits allowed</td>
+                <td align="left">-</td>
+            </tr>
+            <tr>
+                <td align="left">y</td>
+                <td align="left">y coordinate of canvas area to get widgets from</td>
+                <td align="left">Not null, only 3 digits allowed</td>
+                <td align="left">-</td>
+            </tr>
+            <tr>
+                <td align="left">width</td>
+                <td align="left">width of canvas area to get widgets from</td>
+                <td align="left">Not null, &gt; 0, only 3 digits allowed</td>
+                <td align="left">-</td>
+            </tr>
+            <tr>
+                <td align="left">height</td>
+                <td align="left">height of canvas area to get widgets from</td>
+                <td align="left">Not null, &gt; 0, only 3 digits allowed</td>
+                <td align="left">-</td>
+            </tr>
+            <tr>
+                <td align="left">zIndex</td>
+                <td align="left">zIndex of the widget</td>
+                <td align="left">&gt; 0</td>
+                <td align="left">If zIndex is changed and new zIndex already exists in repository, will increment all the indexes that are higher than provided</td>
+            </tr>
+            </tbody>
+        </table>
+        <p>id field will be ignored by this method</p>
+        <p>returns JSON with information about updated widget. Example:</p>
+        <pre><code>   {
+        "id" : 0,
+        "x" : 5,
+        "y" : 10,
+        "width" : 3,
+        "height" : 3,
+        "zIndex" : 5
+    }
+</code></pre>
+        <table>
+            <thead>
+            <tr>
+                <th align="left">Code</th>
+                <th align="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="left">200</td>
+                <td align="left">response returned succesfully</td>
+            </tr>
+            <tr>
+                <td align="left">422</td>
+                <td align="left">returned when one or more request parameters is invalid</td>
+            </tr>
+            <tr>
+                <td align="left">500</td>
+                <td align="left">returned when JSON is malformed</td>
+            </tr>
+            </tbody>
+        </table>
+        <h3><a id="user-content-delete-exsisting-request-method-delete" class="anchor" aria-hidden="true" href="#delete-exsisting-request-method-delete"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Delete exsisting. Request method: DELETE</h3>
+        <p>Deletes a specific widget by its ID.</p>
+        <p>uri format:</p>
+        <blockquote>
+            <p><a href="http://host:port/rest/api-version/widgets/%7Bid%7D" rel="nofollow">http://host:port/rest/api-version/widgets/{id}</a></p>
+        </blockquote>
+        <p>id must be number</p>
+        <p>Returns a message that the widget was deleted successfully. Example:</p>
+        <pre><code>Succesfully deleted widget 3
+</code></pre>
+        <p>Response codes:</p>
+        <table>
+            <thead>
+            <tr>
+                <th align="left">Code</th>
+                <th align="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="left">200</td>
+                <td align="left">response returned succesfully</td>
+            </tr>
+            <tr>
+                <td align="left">404</td>
+                <td align="left">returned when the requested widget does not exist in repository</td>
+            </tr>
+            <tr>
+                <td align="left">500</td>
+                <td align="left">returned when id is invalid</td>
+            </tr>
+            </tbody>
+        </table>
+    </article>
 </div>
 </body>
 </html>
