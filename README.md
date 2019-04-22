@@ -38,9 +38,14 @@ example uri:
 >http://host:port/rest/api-version/resource-name/?sort=X,desc
 
 returned results will be sorted by "X" field in descending direction
+
+
 ##Resources
+
 ###Widgets
+
 ####Find all
+
 ####Find by id
 ####Add new or replace existing
 ####Update existing
