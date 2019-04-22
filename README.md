@@ -135,7 +135,7 @@ x | x coordinate of canvas area to get widgets from | Not null, only 3 digits al
 y | y coordinate of canvas area to get widgets from | Not null, only 3 digits allowed | -
 width | width of canvas area to get widgets from | Not null, > 0, only 3 digits allowed | -
 height | height of canvas area to get widgets from | Not null, > 0, only 3 digits allowed | -
-zIndex | zIndex of the widget | If added zIndex already exists in repository, will increment all the indexes that are higher than provided
+zIndex | zIndex of the widget | >0 | If added zIndex already exists in repository, will increment all the indexes that are higher than provided
 
 returns JSON with information about added/edited widget. Example:
 
@@ -174,7 +174,7 @@ x | x coordinate of canvas area to get widgets from | Not null, only 3 digits al
 y | y coordinate of canvas area to get widgets from | Not null, only 3 digits allowed | -
 width | width of canvas area to get widgets from | Not null, > 0, only 3 digits allowed | -
 height | height of canvas area to get widgets from | Not null, > 0, only 3 digits allowed | -
-zIndex | zIndex of the widget | If added zIndex already exists in repository, will increment all the indexes that are higher than provided
+zIndex | zIndex of the widget | > 0 | If zIndex is changed and new zIndex already exists in repository, will increment all the indexes that are higher than provided
 
 id field will be ignored by this method
 
