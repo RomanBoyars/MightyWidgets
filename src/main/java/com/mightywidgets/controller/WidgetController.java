@@ -61,13 +61,13 @@ public class WidgetController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Widget> findById(@PathVariable Long id) {
+    public Widget findById(@PathVariable Long id) {
         Optional<Widget> widget = widgetRepository.findById(id);
 
         if (!widget.isPresent()) {
             throw new WidgetNotFoundException(id);
         }
-        return new ResponseEntity<>(widget.get(), HttpStatus.OK);
+        return widget.get();
     }
 
 
@@ -97,13 +97,13 @@ public class WidgetController {
 
 
     @DeleteMapping("/{id}")
-    ResponseEntity<String> delete(@PathVariable Long id) {
+    public String delete(@PathVariable Long id) {
         try {
             widgetRepository.deleteById(id);
         } catch (EntityNotFoundException e) {
             throw new WidgetNotFoundException(id);
         }
-        return new ResponseEntity<>("Deleted widget " + id, HttpStatus.OK);
+        return "Deleted widget " + id;
     }
 
 
