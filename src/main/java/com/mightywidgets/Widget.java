@@ -1,8 +1,6 @@
 /*
   Widget class
   <p>
-  Represents a whiteboard widget.
-  <p>
   Created 16.04.2019
  */
 
@@ -15,6 +13,9 @@ import org.springframework.data.annotation.Id;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Represents a whiteboard widget.
+ */
 public class Widget extends CanvasArea {
     @Id
     private Long id;
@@ -32,13 +33,12 @@ public class Widget extends CanvasArea {
      * @param width  Widget width in pixels. Must not be null or empty, or lesser than 0.
      * @param zIndex Z-Index of widget (the higher the value, the higher the widget lies)
      */
-    public Widget(
-            @JsonProperty("id") Long id,
-            @JsonProperty("x") Integer x,
-            @JsonProperty("y") Integer y,
-            @JsonProperty("height") Integer height,
-            @JsonProperty("width") Integer width,
-            @JsonProperty("zindex") Integer zIndex) {
+    public Widget(@JsonProperty("id") Long id,
+                  @JsonProperty("x") Integer x,
+                  @JsonProperty("y") Integer y,
+                  @JsonProperty("height") Integer height,
+                  @JsonProperty("width") Integer width,
+                  @JsonProperty("zindex") Integer zIndex) {
         super(x, y, height, width);
         this.id = id;
         this.zIndex = zIndex;

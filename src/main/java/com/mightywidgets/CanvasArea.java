@@ -1,3 +1,9 @@
+/*
+
+ Created 20.04.2019
+
+*/
+
 package com.mightywidgets;
 
 import javax.validation.constraints.Digits;
@@ -5,6 +11,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
+/**
+ * Base class for all canvas objects
+ */
 public class CanvasArea {
     @Digits(integer = 3, fraction = 0, message = "X coordinate value is too big. Only 3 digits allowed!")
     @NotNull(message = "X coordinate can not be null!")
@@ -21,6 +30,14 @@ public class CanvasArea {
     @NotNull(message = "Width can not be null!")
     private Integer width;
 
+    /**
+     * Constructor with parameters for creating a CanvasArea based object
+     *
+     * @param x      x position of the widget on canvas. Must not be null or empty.
+     * @param y      y position of the widget on canvas. Must not be null or empty.
+     * @param height Widget height in pixels. Must not be null or empty, or lesser than 0.
+     * @param width  Widget width in pixels. Must not be null or empty, or lesser than 0.
+     */
     public CanvasArea(Integer x, Integer y, Integer height, Integer width) {
         this.x = x;
         this.y = y;
@@ -33,10 +50,7 @@ public class CanvasArea {
         if (this == o) return true;
         if (!(o instanceof CanvasArea)) return false;
         CanvasArea that = (CanvasArea) o;
-        return x.equals(that.x) &&
-                y.equals(that.y) &&
-                height.equals(that.height) &&
-                width.equals(that.width);
+        return x.equals(that.x) && y.equals(that.y) && height.equals(that.height) && width.equals(that.width);
     }
 
     @Override

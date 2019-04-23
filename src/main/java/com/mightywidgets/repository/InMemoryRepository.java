@@ -1,11 +1,8 @@
-/**
- * InMemoryRepository class
- * <p>
- * Represents a repository of objects based on java.util.Map
- * All objects stored in memory
- * <p>
- * Created 16.04.2019
- */
+/*
+ InMemoryRepository class
+
+ Created 16.04.2019
+*/
 
 package com.mightywidgets.repository;
 
@@ -24,6 +21,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
+ * Represents a repository of objects based on java.util.Map
+ * All objects stored in memory
+ *
  * @param <T>  type of entities to store in repository
  * @param <ID> type of keys
  */
@@ -150,10 +150,8 @@ public abstract class InMemoryRepository<T, ID> implements PagingAndSortingRepos
      */
     private <S extends T> Field getIdField(S entity) {
         Field idField;
-        idField = Arrays.stream(entity.getClass()
-                .getDeclaredFields())
-                .filter(e -> e.isAnnotationPresent(Id.class))
-                .findFirst().get();
+        idField =
+                Arrays.stream(entity.getClass().getDeclaredFields()).filter(e -> e.isAnnotationPresent(Id.class)).findFirst().get();
         if (idField == null) {
             throw new RuntimeException("Object type does not have annotated ID field!");
         }
@@ -220,15 +218,14 @@ public abstract class InMemoryRepository<T, ID> implements PagingAndSortingRepos
 
             values = values.stream().sorted((o1, o2) -> {
                 try {
-                    Method m = o1.getClass().getMethod("get" + propertyName);
+                    Method m = o1.getClass().getMethod("get" + propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1));
                     Comparable<Object> s1 = (Comparable<Object>) m.invoke(o1);
                     Comparable<Object> s2 = (Comparable<Object>) m.invoke(o2);
-                    if (direction == Sort.Direction.ASC)
-                        return s1.compareTo(s2);
-                    else
-                        return s2.compareTo(s1);
+                    if (direction == Sort.Direction.ASC) return s1.compareTo(s2);
+                    else return s2.compareTo(s1);
                 } catch (Exception e) {
-                    throw new RuntimeException("Entity does not contain such field or field is unavailable due to its access level!");
+                    throw new RuntimeException("Entity does not contain such field or field is unavailable due to its" +
+                            " access level!");
                 }
             }).collect(Collectors.toList());
         }

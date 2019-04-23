@@ -1,3 +1,9 @@
+/*
+
+Created 18.04.2019
+
+ */
+
 package com.mightywidgets.repository;
 
 import com.mightywidgets.CanvasArea;
@@ -11,6 +17,9 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a repository of Widgets
+ */
 public class WidgetRepository extends InMemoryRepository<Widget, Long> {
     private AtomicLong primaryKeyGenerator = new AtomicLong();
 
@@ -22,6 +31,14 @@ public class WidgetRepository extends InMemoryRepository<Widget, Long> {
         return primaryKeyGenerator.get();
     }
 
+    /**
+     * {@inheritDoc}
+     * Save {@link Widget} and handle z-Indexes
+     *
+     * @param widget the {@link Widget} object
+     * @param <S>
+     * @return saved {@link Widget}
+     */
     @Override
     public <S extends Widget> S save(S widget) {
 
@@ -34,6 +51,14 @@ public class WidgetRepository extends InMemoryRepository<Widget, Long> {
         return super.save(widget);
     }
 
+    /**
+     * Finds all widgets within specific {@link CanvasArea}
+     * Supports pagination and sorting.
+     *
+     * @param canvasArea the {@link CanvasArea} object
+     * @param pageable   the {@link Pageable} object
+     * @return {@link Page} with found widgets
+     */
     public Page<Widget> findAll(CanvasArea canvasArea, Pageable pageable) {
         List<Widget> widgets = findAll().stream().filter(e ->
                 e.getX() > canvasArea.getX() &&
@@ -44,6 +69,13 @@ public class WidgetRepository extends InMemoryRepository<Widget, Long> {
         return paginate(widgets, pageable);
     }
 
+    /**
+     * Moves z-Indexes
+     *
+     * @param widget the {@link Widget} object
+     * @param <S>
+     * @return saved {@link Widget}
+     */
     private <S extends Widget> void moveZIndexes(S widget) {
         List<Widget> widgets = findAll();
         if (widget.getId() == null || !findById(widget.getId()).isPresent() ||
@@ -55,6 +87,11 @@ public class WidgetRepository extends InMemoryRepository<Widget, Long> {
         }
     }
 
+    /**
+     * Get max z-Index among all Widgets
+     *
+     * @return {@link Integer} max z-Index
+     */
     private Integer getMaxZIndex() {
         List<Widget> widgets = findAll();
         Optional<Widget> maxZIndexWidget = widgets.stream().max(Comparator.comparing(Widget::getZIndex));

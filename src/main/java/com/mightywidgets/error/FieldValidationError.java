@@ -1,7 +1,17 @@
+/*
+
+Created 20.04.2019
+
+*/
+
 package com.mightywidgets.error;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+
+/**
+ * Represents field validation error through @Valid annotation or validator.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FieldValidationError extends InnerError {
     private String object;

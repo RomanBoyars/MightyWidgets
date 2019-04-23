@@ -1,5 +1,7 @@
-/**
- *
+/*
+
+ Created 19.04.2019
+
  */
 package com.mightywidgets.error;
 
@@ -27,18 +29,25 @@ public class WidgetErrorAdvice extends ResponseEntityExceptionHandler {
     /**
      * Handles custom {@link WidgetNotFoundException}
      *
-     * @param e the exception
+     * @param ex the exception
      * @return {@link ResponseEntity}
      */
     @ExceptionHandler(WidgetNotFoundException.class)
-    public ResponseEntity<Object> handleNotFoundException(WidgetNotFoundException e) {
+    public ResponseEntity<Object> handleNotFoundException(WidgetNotFoundException ex) {
         ApiError apiError = ApiError.newBuilder()
                 .withStatus(HttpStatus.NOT_FOUND)
-                .withMessage(e.getMessage())
+                .withMessage(ex.getMessage())
                 .build();
         return buildErrorResponseEntity(apiError);
     }
 
+    /**
+     * Handles {@link MethodArgumentTypeMismatchException}
+     *
+     * @param ex the exception
+     * @param request the request
+     * @return {@link ResponseEntity}
+     */
     @ExceptionHandler({MethodArgumentTypeMismatchException.class})
     public ResponseEntity<Object> handleMethodArgumentTypeMismatch(
             MethodArgumentTypeMismatchException ex, WebRequest request) {
@@ -56,14 +65,14 @@ public class WidgetErrorAdvice extends ResponseEntityExceptionHandler {
     /**
      * Handles {@link RuntimeException}
      *
-     * @param e the exception
+     * @param ex the exception
      * @return {@link ResponseEntity}
      */
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<Object> handleRuntimeException(RuntimeException e) {
+    public ResponseEntity<Object> handleRuntimeException(RuntimeException ex) {
         ApiError apiError = ApiError.newBuilder()
                 .withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-                .withMessage(e.getMessage())
+                .withMessage(ex.getMessage())
                 .build();
         return buildErrorResponseEntity(apiError);
     }

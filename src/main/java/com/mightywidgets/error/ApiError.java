@@ -1,3 +1,9 @@
+/*
+
+Created 20.04.2019
+
+ */
+
 package com.mightywidgets.error;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -7,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * represents any error.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiError {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy hh:mm:ss")
@@ -44,7 +53,8 @@ public class ApiError {
 
         private ApiErrorBuilder() {
             ApiError.this.timestamp = LocalDateTime.now();
-            ApiError.this.status = HttpStatus.INTERNAL_SERVER_ERROR; //by default status is 500 if not defined by builder
+            ApiError.this.status = HttpStatus.INTERNAL_SERVER_ERROR; //by default status is 500 if not defined by
+            // builder
         }
 
         public ApiErrorBuilder withStatus(HttpStatus status) {
