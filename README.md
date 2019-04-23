@@ -9,6 +9,12 @@ The MightyWidgets REST API uses standard HTTP methods like GET, PUT, POST and DE
 ```
 http://host:port/rest/api-version/resource-name
 ```
+
+The default URI paths on local machine will be:
+Get All/Add new/Replace: http://localhost:8080/api/test/widgets/
+Find by ID/Delete: http://localhost:8080/api/test/widgets/{id}
+Update: http://localhost:8080/api/test/widgets/update/{id}
+
 ## Pagination
 API uses pagination to limit response results, for resources that return large collections of items. Returned JSON wil contain paging metadata and a collection of items itself. Example:
 ```
@@ -89,7 +95,6 @@ Response codes:
 Code | Description
 :------------- | :-------------
 200 | response returned succesfully
-404 | returned when requested page not found
 500 | returned when sorting or paging information is invalid
 
 ### Find by id. request method: GET
@@ -119,12 +124,14 @@ Code | Description
 :------------- | :-------------
 200 | response returned succesfully
 404 | returned when the requested widget does not exist in repository
-500 | returned when id is invalid
+400 | returned when id is invalid
 
 ### Add new or replace existing. Request method: POST
 
 Adds new widget to the repository, or replaces the existing.
 Accepts JSON with widget information.
+
+***Content-type: Application/Json***
 
 Input JSON fields:
 
@@ -153,8 +160,7 @@ returns JSON with information about added/edited widget. Example:
 Code | Description
 :------------- | :-------------
 200 | response returned succesfully
-422 | returned when one or more request parameters is invalid
-500 | returned when JSON is malformed
+400 | returned when one or more request parameters is invalid, or JSON is malformed
 
 ### Update existing. Request method: PUT
 
@@ -166,6 +172,8 @@ uri format:
 
 id must be a number
 
+***Content-type: Application/Json***
+
 Input JSON fields:
 
 Field name | Description | Constraint | Additional info
@@ -176,7 +184,7 @@ width | width of canvas area to get widgets from | Not null, > 0, only 3 digits 
 height | height of canvas area to get widgets from | Not null, > 0, only 3 digits allowed | -
 zIndex | zIndex of the widget | > 0 | If zIndex is changed and new zIndex already exists in repository, will increment all the indexes that are higher than provided
 
-id field will be ignored by this method
+***id field in JSON will be ignored by this method***
 
 returns JSON with information about updated widget. Example:
 
@@ -194,8 +202,8 @@ returns JSON with information about updated widget. Example:
 Code | Description
 :------------- | :-------------
 200 | response returned succesfully
-422 | returned when one or more request parameters is invalid
-500 | returned when JSON is malformed
+404 | returned when the requested widget does not exist in repository
+400 | returned when one or more request parameters is invalid, or JSON is malformed
 
 ### Delete exsisting. Request method: DELETE
 
@@ -209,7 +217,7 @@ id must be number
 Returns a message that the widget was deleted successfully. Example:
 
 ```
-Succesfully deleted widget 3
+Deleted widget 3
 ```
 
 Response codes:
@@ -218,4 +226,4 @@ Code | Description
 :------------- | :-------------
 200 | response returned succesfully
 404 | returned when the requested widget does not exist in repository
-500 | returned when id is invalid
+400 | returned when id is invalid
