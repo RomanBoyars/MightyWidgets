@@ -12,9 +12,9 @@ http://host:port/rest/api-version/resource-name
 
 The default URI paths on local machine will be:
 
-*Get All/Add new/Replace: http://localhost:8080/api/test/widgets/
-*Find by ID/Delete: http://localhost:8080/api/test/widgets/{id}
-*Update: http://localhost:8080/api/test/widgets/update/{id}
+⋅⋅* Get All/Add new/Replace: http://localhost:8080/api/test/widgets/
+⋅⋅* Find by ID/Delete: http://localhost:8080/api/test/widgets/{id}
+⋅⋅* Update: http://localhost:8080/api/test/widgets/update/{id}
 
 ## Pagination
 API uses pagination to limit response results, for resources that return large collections of items. Returned JSON wil contain paging metadata and a collection of items itself. Example:
