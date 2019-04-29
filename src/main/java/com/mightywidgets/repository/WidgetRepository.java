@@ -40,7 +40,7 @@ public class WidgetRepository extends InMemoryRepository<Widget, Long> {
      * @return saved {@link Widget}
      */
     @Override
-    public <S extends Widget> S save(S widget) {
+    public synchronized <S extends Widget> S save(S widget) {
 
         if (widget.getZIndex() == null) {
             widget.setzIndex(getMaxZIndex() + 1);
