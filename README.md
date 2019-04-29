@@ -21,7 +21,7 @@ API uses pagination to limit response results, for resources that return large c
 ```
 {
         "page" : 0,
-        "pageSize",
+        "pageSize": 10,
         "totalPages" : 10,
         "showing": 3,
         "totalElems": 3,
@@ -32,7 +32,7 @@ API uses pagination to limit response results, for resources that return large c
         ]
     }
 ```
-Cliens can use "page" and "size" parameters to get the desired set of results.
+Clients can use "page" and "size" parameters to get the desired set of results.
 
 Param | Description
 :------------ | :-------------
@@ -45,7 +45,7 @@ http://host:port/rest/api-version/resource-name/?page=1&size=50
 ```
 this request returns page 1 with size of 50 elements
 ## Sorting
-Sorting request is provided by "sort" parameter. You need to specify field name on which to sort by and you can add sorting direction ("asc" or "desc"). By default results are sorted in ascending direction by id field.
+Sorting request is provided by "sort" parameter. You need to specify the field name on which to sort by and you can add sorting direction ("asc" or "desc"). By default results are sorted in ascending direction by id field.
 example uri:
 ```
 http://host:port/rest/api-version/resource-name/?sort=X,desc
@@ -69,7 +69,7 @@ x | x coordinate of canvas area to get widgets from | Not null, only 3 digits al
 y | y coordinate of canvas area to get widgets from | Not null, only 3 digits allowed
 width | width of canvas area to get widgets from | Not null, > 0, only 3 digits allowed
 height | height of canvas area to get widgets from | Not null, > 0, only 3 digits allowed
-page | page number to get content from | Must be an existing page number ( <= totalPages)
+page | page number to get content from | Must be an existing page number ( < totalPages)
 size | number of elements to display on one page | < 500
 sort | sorting field name and direction | Must be an existing field name
 
@@ -80,7 +80,7 @@ Example:
 ```
    {
         "page" : 0,
-        "pageSize",
+        "pageSize": 10,
         "totalPages" : 10,
         "showing": 3,
         "totalElems": 3,
